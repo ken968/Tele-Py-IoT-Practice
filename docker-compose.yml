@@ -1,0 +1,39 @@
+services:
+  emqx:
+    image: emqx/emqx:latest
+    container_name: broker_emqx
+    ports:
+      - "1883:1883"     # Port buat kirim data sensor
+      - "18083:18083"   # Port buat Dashboard Admin
+      - "8083:8083"
+    networks:
+      - iot_net
+
+  questdb:
+    image: questdb/questdb:latest
+    container_name: database_questdb
+    ports:
+      - "9000:9000"     # Port buat lihat data (Web Console)
+      - "8812:8812"     # Port buat Grafana baca data
+    networks:
+      - iot_net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: dashboard_grafana
+    ports:
+      - "3000:3000"     # Port buat lihat grafik
+    networks:
+      - iot_net
+
+  mqttx:
+    image: emqx/mqttx-web:latest
+    container_name: mqttx_latihan
+    ports:
+      - "8081:80"
+    networks:
+      - iot_net
+
+networks:
+  iot_net:
+    driver: bridge
