@@ -1,10 +1,16 @@
 from sensor import payload
 from http.client import EXPECTATION_FAILED
+from dotenv import load_dotenv
+import os
 import paho.mqtt.client as mqtt
 import json
 import time
 import requests
 import psycopg2
+
+load_dotenv()
+TOKEN = os.getenv("TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 DB_CONFIG = {
     "host": "localhost",
@@ -14,8 +20,6 @@ DB_CONFIG = {
     "database": "qdb"
 }
 
-TOKEN = "8295686079:AAEejQ1ntT55-NAK138ZUpCySAi37YcGUYA"
-CHAT_ID = "7627314799"
 last_update_id = 0
 last_temp = 0
 
